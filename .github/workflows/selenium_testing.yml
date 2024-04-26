@@ -17,8 +17,10 @@ jobs:
         cache: maven
     - name: Install Google Chrome 
       run: |
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        VERSION="114.0.5735.90"
         sudo apt install ./google-chrome-stable_current_amd64.deb
+        wget "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${VERSION}-1_amd64.deb" -O google-chrome-stable_${VERSION}-1_amd64.deb
+        sudo apt install ./google-chrome-stable_${VERSION}-1_amd64.deb
     - name: Install Chromedriver
       run: |
         sudo apt-get update
