@@ -24,7 +24,8 @@ jobs:
     - name: Install Chromedriver
       run: |
         CHROME_VERSION="124.0.6367.91"
-        LATEST_CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
+        CHROMEDRIVER_VERSION="124.0.6367.91"
+        LATEST_CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROMEDRIVER_VERSION})
         wget -N "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -P /usr/local/bin/
         sudo unzip -o /usr/local/bin/chromedriver_linux64.zip -d /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
