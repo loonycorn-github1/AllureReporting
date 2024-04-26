@@ -4,6 +4,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -16,21 +17,13 @@ jobs:
         cache: maven
     - name: Install Google Chrome
       run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget -q -O /tmp/google-chrome-stable_current_amd64.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install -y /tmp/google-chrome-stable_current_amd64.deb
+        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+        sudo apt install -y ./google-chrome-stable_current_amd64.deb
     - name: Install Chromedriver
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip
-        wget -N https://chromedriver.storage.googleapis.com/124.0.6367.91/chromedriver_linux64.zip -P /tmp/
-        unzip /tmp/chromedriver_linux64.zip -d /tmp/
-        sudo mv -f /tmp/chromedriver /usr/local/bin/
+        sudo apt-get install -y unzip
+        wget -N https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chromedriver-linux64.zip
+        unzip chromedriver-linux64.zip
+        sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
         sudo chmod +x /usr/local/bin/chromedriver
-    - name: Log ChromeDriver version
-      run: chromedriver --version
-    - name: Log Chrome version
-      run: google-chrome --version
-    - name: Run E-commerce tests
-      run: mvn -B -f pom.xml clean test
