@@ -23,11 +23,8 @@ jobs:
         sudo unzip -d /usr/local/bin/ chrome-linux64.zip
     - name: Install Chromedriver
       run: |
-        CHROME_VERSION="124.0.6367.91"
-        CHROMEDRIVER_VERSION="124.0.6367.91"
-        LATEST_CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROMEDRIVER_VERSION})
-        wget -N "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -P /usr/local/bin/
-        sudo unzip -o /usr/local/bin/chromedriver_linux64.zip -d /usr/local/bin/
+        wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chromedriver-linux64.zip
+        sudo unzip -d /usr/local/bin/ chromedriver-linux64.zip
         sudo chmod +x /usr/local/bin/chromedriver
     - name: Ecommerce tests execution
       run: mvn -B -f pom.xml clean test
