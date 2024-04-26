@@ -1,3 +1,5 @@
+name: Java CI with Maven for Ecommerce Tests
+
 on:
   push:
     branches: [ "master" ]
@@ -21,7 +23,11 @@ jobs:
         sudo apt install ./google-chrome-stable_current_amd64.deb
     - name: Install Chromedriver
       run: |
-        chmod +x ./install_chromedriver.sh
-        ./install_chromedriver.sh
+        CHROME_VERSION=$(google-chrome --version | cut -d ' ' -f 3 | cut -d '.' -f 1)
+        LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
+        wget https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
     - name: Ecommerce tests execution
       run: mvn -B -f pom.xml clean test
