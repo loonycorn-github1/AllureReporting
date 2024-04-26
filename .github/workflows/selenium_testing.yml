@@ -19,15 +19,14 @@ jobs:
         cache: maven
     - name: Install Google Chrome 
       run: |
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo apt install ./google-chrome-stable_current_amd64.deb
+        wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chrome-linux64.zip
+        sudo unzip -d /usr/local/bin/ chrome-linux64.zip
     - name: Install Chromedriver
       run: |
         CHROME_VERSION="124.0.6367.91"
         LATEST_CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})
-        wget -N "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -P ~/
-        unzip -o ~/chromedriver_linux64.zip -d ~/
-        sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+        wget -N "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -P /usr/local/bin/
+        sudo unzip -o /usr/local/bin/chromedriver_linux64.zip -d /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
     - name: Ecommerce tests execution
       run: mvn -B -f pom.xml clean test
