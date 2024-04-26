@@ -1,21 +1,14 @@
 import com.loonycorn.learningselenium.pages.*;
 import com.loonycorn.learningselenium.utils.DriverFactory;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
+import io.qameta.allure.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
-import io.qameta.allure.Description;
-import io.qameta.allure.Story;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
-@Listeners(io.qameta.allure.testng.AllureTestNg.class)
-@Epic("E-commerce Website Testing")
-@Feature("Shopping Cart Functionality")
+
 public class PageObjectModelTest {
 
     private static final String SITE =
@@ -55,9 +48,9 @@ public class PageObjectModelTest {
         }
     }
 
+
+
     @Test
-    @Description("Test to verify login functionality")
-    @Severity(SeverityLevel.NORMAL)
     public void testLogin() {
         loginPage.login("standard_user", "secret_sauce");
 
@@ -67,8 +60,6 @@ public class PageObjectModelTest {
     }
 
     @Test(dependsOnMethods = "testLogin")
-    @Description("Test to add a backpack to the cart")
-    @Severity(SeverityLevel.NORMAL)
     public void testAddBackpackToCart() {
         productsPage.navigateToProductPage("Sauce Labs Backpack");
 
@@ -83,8 +74,6 @@ public class PageObjectModelTest {
     }
 
     @Test(dependsOnMethods = "testAddBackpackToCart")
-    @Description("Test to add a fleece jacket to the cart")
-    @Severity(SeverityLevel.NORMAL)
     public void testAddFleeceJacketToCart() {
         productsPage.navigateToProductPage("Sauce Labs Fleece Jacket");
 
@@ -99,8 +88,6 @@ public class PageObjectModelTest {
     }
 
     @Test(dependsOnMethods = {"testAddBackpackToCart", "testAddFleeceJacketToCart"})
-    @Description("Test to verify the cart functionality")
-    @Severity(SeverityLevel.NORMAL)
     public void testCart() {
         productsPage.navigateToCart();
 
@@ -116,8 +103,6 @@ public class PageObjectModelTest {
     }
 
     @Test(dependsOnMethods = "testCart")
-    @Description("Test to verify the checkout functionality")
-    @Severity(SeverityLevel.CRITICAL)
     public void testCheckout() {
         cartPage.continueCheckout();
 
@@ -136,8 +121,6 @@ public class PageObjectModelTest {
 
 
     @Test(dependsOnMethods = "testCheckout")
-    @Description("Test to verify the final checkout functionality")
-    @Severity(SeverityLevel.CRITICAL)
     public void testFinalCheckout() {
         checkoutPage.continueCheckout();
 
@@ -155,8 +138,6 @@ public class PageObjectModelTest {
 
 
     @Test(dependsOnMethods = "testFinalCheckout")
-    @Description("Test to verify the order completion functionality")
-    @Severity(SeverityLevel.NORMAL)
     public void testOrderCompletion() {
         finalCheckoutPage.finishCheckout();
 
@@ -166,7 +147,6 @@ public class PageObjectModelTest {
 
         delay();
     }
-
 
     @AfterClass
     public void tearDown() {
