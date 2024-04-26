@@ -30,3 +30,4 @@ jobs:
     - name: Log ChromeDriver version
       run: chromedriver --version
     - name: Log Chrome version
+      run: google-chrome --version
