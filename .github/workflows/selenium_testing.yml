@@ -20,4 +20,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Ecommerce tests execution
-      run: mvn -B -f pom.xml clean test
+      run: mvn clean test
